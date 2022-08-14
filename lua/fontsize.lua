@@ -32,7 +32,7 @@ M.indicator = function()
 end
 
 M.update_font = function()
-    vim.o.guifont = font .. ':h' .. size
+    vim.opt.guifont = { font, ':h' .. size }
 end
 
 M.change_size = function(change)
