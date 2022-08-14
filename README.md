@@ -1,49 +1,55 @@
-# nvim-lua-plugin-template
+# Introduction
 
-This repository is a template for Neovim plugins written in Lua.
+`fontsize` is a simple lua plugin for neovim that adds Commands to change the GUI font size on-the-fly.
 
-The intention is that you use this template to create a new repository where you then adapt this readme and add your plugin code.
-The template includes the following:
+# Installation
 
-- GitHub workflows to run linters and tests
-- Minimal test setup
-- EditorConfig
-- A .luacheckrc
+With `packer`:
 
-
-To get started writing a Lua plugin, I recommend reading the [nvim-lua-guide][nvim-lua-guide].
-
-## Scope
-
-Anything that the majority of plugin authors will want to have is in scope of
-this starter template. Anything that is controversial is out-of-scope.
-
----
-
-
-The remainder of the README is text that can be preserved in your plugin:
-
----
-
-
-## Development
-
-### Run tests
-
-
-Running tests requires [plenary.nvim][plenary] to be checked out in the parent directory of *this* repository.
-You can then run:
-
-```bash
-nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/minimal.vim'}"
+```shell
+use 'Sup3Legacy/fontsize.nvim'
 ```
 
-Or if you want to run a single test file:
+With `Plug`:
 
-```bash
-nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/path_to_file.lua {minimal_init = 'tests/minimal.vim'}"
+```shell
+Plug 'Sup3Legacy.fontsize.nvim'
 ```
 
+# Using `fontsize`
 
-[nvim-lua-guide]: https://github.com/nanotee/nvim-lua-guide
-[plenary]: https://github.com/nvim-lua/plenary.nvim
+## Setup
+
+```lua
+require('fontsize').init(
+    {
+        -- Required argument
+        font = "Fira Code, Nerd Font",
+
+        -- Optional arguments
+        min = 6,
+        default = 10,
+        max = 24,
+        step = 1,
+    }
+)
+```
+
+The defaults are the following:
+
+```lua
+local defaults = {
+    min = 6,
+    default = 8,
+    max = 20,
+    step = 1
+}
+```
+
+## Commands 
+
+When properly initializedn `fontsize` defines a few commands:
+
+- `FontIncrease`: to increase the GUI font size by `step`
+- `FontDecrease`: to decrease it by `step`
+- `FontReset`: to reset the font size to the default value

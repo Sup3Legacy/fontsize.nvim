@@ -1,18 +1,34 @@
 local warn = function(message)
-    vim.api.nvim_echo({{'fontsize.nvim: ' .. message, 'WarningMsg'}}, true, {})
+    vim.api.nvim_echo({{'fontsize.nvim: ' .. message, 'ErrorMsg'}}, true, {})
 end
 
 local M = {}
 
+-- Base font size
 local default = nil
+-- Current size
 local size = nil
+-- Font string
 local font = nil
+-- Maximum size
 local max = nil 
+-- Minimum size
 local min = nil
+-- Step size
 local step = nil
 
+-- Default configuration
+local defaults = {
+    min = 6,
+    default = 8,
+    max = 20,
+    step = 1
+}
+
+-- Returns the current size. 
+-- Useful for e.g. integration in a statusline
 M.indicator = function()
-    return size or '~'
+    return (' ' .. (size or '~'))
 end
 
 M.update_font = function()
@@ -32,18 +48,30 @@ end
 
 M.init = function(config) 
     if not config then
+        warn('missing config.')
         return
     end
     if not (config.font) then
         warn('config must have `font` set.')
         return
     end
-    default = config.default or 8
+
+    -- Load values
+    default = config.default or defaults.default
+    min = config.min or defaults.min
+    max = config.max or defaults.max
+    step = config.step or defaults.step
     size = default
-    min = config.min or 6
-    max = config.max or 30
-    step = config.step or 1
     font = config.font
+
+    -- Fix min/max mismatch
+    if min > max then 
+        local temp = min 
+        min = max 
+        max = temp
+    end
+
+    -- User commands
     vim.api.nvim_create_user_command(
         'FontIncrease', 
         function() M.change_size(1) end,
@@ -55,7 +83,7 @@ M.init = function(config)
         {}
     )
     vim.api.nvim_create_user_command(
-        'FontDefault', 
+        'FontReset', 
         function() M.change_size(0) end,
         {}
     )
