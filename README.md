@@ -13,7 +13,7 @@ use 'Sup3Legacy/fontsize.nvim'
 With `Plug`:
 
 ```shell
-Plug 'Sup3Legacy.fontsize.nvim'
+Plug 'Sup3Legacy/fontsize.nvim'
 ```
 
 # Using `fontsize`
@@ -53,3 +53,7 @@ When properly initializedn `fontsize` defines a few commands:
 - `FontIncrease`: to increase the GUI font size by `step`
 - `FontDecrease`: to decrease it by `step`
 - `FontReset`: to reset the font size to the default value
+
+## \*line integration
+
+`require('fontsize').indicator` is a function that outputs a string representing the current fontsize. It can be used as a field in e.g. `lualine`.
