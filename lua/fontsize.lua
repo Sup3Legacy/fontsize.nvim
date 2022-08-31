@@ -11,7 +11,7 @@ local size = nil
 -- Font string
 local font = nil
 -- Maximum size
-local max = nil 
+local max = nil
 -- Minimum size
 local min = nil
 -- Step size
@@ -36,9 +36,9 @@ M.update_font = function()
 end
 
 M.change_size = function(change)
-    if change < 0 then 
+    if change < 0 then
         size = math.max(min, size - step)
-    elseif change > 0 then 
+    elseif change > 0 then
         size = math.min(max, size + step)
     else
         size = default
@@ -46,7 +46,7 @@ M.change_size = function(change)
     M.update_font()
 end
 
-M.init = function(config) 
+M.init = function(config)
     if not config then
         warn('missing config.')
         return
@@ -65,28 +65,31 @@ M.init = function(config)
     font = config.font
 
     -- Fix min/max mismatch
-    if min > max then 
-        local temp = min 
-        min = max 
+    if min > max then
+        local temp = min
+        min = max
         max = temp
     end
 
     -- User commands
     vim.api.nvim_create_user_command(
-        'FontIncrease', 
+        'FontIncrease',
         function() M.change_size(1) end,
         {}
     )
     vim.api.nvim_create_user_command(
-        'FontDecrease', 
+        'FontDecrease',
         function() M.change_size(-1) end,
         {}
     )
     vim.api.nvim_create_user_command(
-        'FontReset', 
+        'FontReset',
         function() M.change_size(0) end,
         {}
     )
+
+    -- Initialize the font
+    M.update_font()
 end
 
 return M
