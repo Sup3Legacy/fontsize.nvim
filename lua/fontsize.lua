@@ -48,6 +48,7 @@ end
 
 M.set_size = function(new_size)
     size = new_size or default
+    M.update_font()
 end
 
 M.init = function(config)
