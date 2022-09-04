@@ -1,5 +1,5 @@
 local warn = function(message)
-    vim.api.nvim_echo({{'fontsize.nvim: ' .. message, 'ErrorMsg'}}, true, {})
+    vim.api.nvim_echo({ { 'fontsize.nvim: ' .. message, 'ErrorMsg' } }, true, {})
 end
 
 local M = {}
@@ -25,7 +25,7 @@ local defaults = {
     step = 1
 }
 
--- Returns the current size. 
+-- Returns the current size.
 -- Useful for e.g. integration in a statusline
 M.indicator = function()
     return (' ' .. (size or '~'))
@@ -46,7 +46,7 @@ M.change_size = function(change)
     M.update_font()
 end
 
-M.set_size = function(new_size) 
+M.set_size = function(new_size)
     size = new_size or default
 end
 
