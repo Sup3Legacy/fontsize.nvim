@@ -46,6 +46,10 @@ M.change_size = function(change)
     M.update_font()
 end
 
+M.set_size = function(new_size) 
+    size = new_size or default
+end
+
 M.init = function(config)
     if not config then
         warn('missing config.')
