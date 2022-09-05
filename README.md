@@ -48,7 +48,7 @@ local defaults = {
 
 ## Commands 
 
-When properly initializedn `fontsize` defines a few commands:
+When properly initialized, `fontsize` defines a few commands:
 
 - `FontIncrease`: to increase the GUI font size by `step`
 - `FontDecrease`: to decrease it by `step`
